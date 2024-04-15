@@ -11,8 +11,10 @@ metadata:
 spec:
   pipelineRef:
     name: {{ include "app.fullname" . }}-build
-  serviceAccountName: pipeline
-  timeout: 1h0m0s
+  taskRunTemplate:
+    serviceAccountName: pipeline
+  timeouts: 
+    pipeline: 0h30m0s
   params:
     - name: git-url
       value: {{ coalesce .Values.gitUrl "https://github.com/gmodzelewski/devspaces-demo" }}
