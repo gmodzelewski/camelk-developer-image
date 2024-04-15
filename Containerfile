@@ -9,4 +9,5 @@ FROM quay.io/devfile/universal-developer-image:latest
 # quay.io/repository/devfile/base-developer-image?tab=tags
 # https://github.com/devfile/developer-images
 
-RUN sudo dnf update
+RUN dnf update
+RUN jbang app setup && jbang trust add https://github.com/apache/camel && jbang app install camel@apache/camel
