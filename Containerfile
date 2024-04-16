@@ -13,9 +13,8 @@ USER 0
 
 LABEL maintainer="Georg Modzelewski"
 LABEL io.k8s.display-name="camelk-developer-image"
-RUN dnf update -y && \
-    dnf install util-linux-user \
-    dnf clean all
+RUN dnf update -y && dnf clean all
+RUN dnf install -y util-linux-user zsh
 RUN chsh -s /bin/zsh 
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 # RUN jbang app setup && jbang trust add https://github.com/apache/camel && jbang app install camel@apache/camel
