@@ -9,6 +9,8 @@ FROM quay.io/devfile/universal-developer-image:latest
 # quay.io/repository/devfile/base-developer-image?tab=tags
 # https://github.com/devfile/developer-images
 
+USER 0 
+
 LABEL maintainer="Georg Modzelewski"
 LABEL io.k8s.display-name="camelk-developer-image"
 RUN dnf update -y && \
@@ -17,3 +19,5 @@ RUN dnf update -y && \
 RUN chsh -s /bin/zsh 
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 # RUN jbang app setup && jbang trust add https://github.com/apache/camel && jbang app install camel@apache/camel
+
+USER 10001
