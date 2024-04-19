@@ -11,8 +11,9 @@ FROM quay.io/devfile/base-developer-image:ubi9-latest
 LABEL maintainer="Georg Modzelewski"
 LABEL io.k8s.display-name="camelk-developer-image"
 
-# Define the version of Camel-K CLI to install
+# Define the version of stuff CLI to install
 ENV KAMEL_VERSION=2.2.0
+ENV HELM_VERSION=3.14.4
 
 USER 0
 RUN dnf update -y && \ 
@@ -33,7 +34,21 @@ RUN curl -O https://downloads-openshift-console.apps.ocp.ocp-gm.de/amd64/linux/o
     mv oc /usr/local/bin/oc && \
     chmod +x /usr/local/bin/oc && \
     rm oc.tar
-    
+ 
+# install kubectl cli
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256" && \
+   echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check && \
+   sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && \
+   kubectl version --client
+
+# install helm 
+RUN curl https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz -o helm.tar.gz && \
+    tar xf helm.tar.gz && \
+    mv linux-amd64/helm /usr/local/bin/helm && \
+    chmod +x /usr/local/bin/helm && \
+    rm -r helm.tar.gz linux-amd64
+
 # install oh my zsh for terminal greatness
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 RUN chsh -s $(which zsh)
