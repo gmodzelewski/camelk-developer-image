@@ -12,11 +12,11 @@ LABEL maintainer="Georg Modzelewski"
 LABEL io.k8s.display-name="camelk-developer-image"
 
 # Define the version of Camel-K CLI to install
-ENV KAMEL_VERSION=2.3.0
+ENV KAMEL_VERSION=2.2.0
 
 USER 0
 RUN dnf update -y && \ 
-    dnf install -y util-linux-user zsh tar gzip && \
+    dnf install -y util-linux-user zsh tar gzip java-17-openjdk && \
     dnf clean all
 
 # install camel k cli (= kamel)
@@ -27,8 +27,15 @@ RUN curl -L https://github.com/apache/camel-k/releases/download/v${KAMEL_VERSION
     chmod +x /usr/local/bin/kamel && \
     rm camel-k.tar.gz kamel.sha512
 
+# install oc cli
+RUN curl -O https://downloads-openshift-console.apps.ocp.ocp-gm.de/amd64/linux/oc.tar && \
+    tar xf oc.tar && \
+    mv oc /usr/local/bin/oc && \
+    chmod +x /usr/local/bin/oc && \
+    rm oc.tar
+    
 # install oh my zsh for terminal greatness
-RUN chsh -s /bin/zsh 
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUN chsh -s $(which zsh)
 
 USER 10001
