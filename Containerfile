@@ -1,4 +1,4 @@
-FROM quay.io/devfile/base-developer-image:ubi9-latest
+FROM quay.io/devfile/universal-developer-image:latest
 # Some examples:
 # quay.io/devfile/base-developer-image:ubi9-latest
 # quay.io/devfile/universal-developer-image:latest
@@ -17,7 +17,7 @@ ENV HELM_VERSION=3.14.4
 
 USER 0
 RUN dnf update -y && \ 
-    dnf install -y util-linux-user zsh tar gzip java-17-openjdk golang && \
+    dnf install -y util-linux-user zsh tar gzip java-17-openjdk && \
     dnf clean all
 
 # install camel k cli (= kamel)
