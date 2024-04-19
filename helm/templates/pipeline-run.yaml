@@ -18,8 +18,6 @@ spec:
   params:
     - name: git-url
       value: {{ coalesce .Values.gitUrl "https://github.com/gmodzelewski/devspaces-demo" }}
-    - name: IMAGE
-      value: {{ coalesce .Values.repoUrl "quay.io/modzelewski/camelk-developer-image" }}
     - name: TAG
       value: {{ coalesce .Values.repoTAG "1.0.0" }}
   workspaces:

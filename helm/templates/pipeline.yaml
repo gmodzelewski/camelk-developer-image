@@ -95,6 +95,7 @@ spec:
     - description: image to be built from the code
       name: IMAGE
       type: string
+      default: {{ coalesce .Values.repoUrl "quay.io/modzelewski/camelk-developer-image" }}
     - description: image tag to be set
       name: TAG
       type: string

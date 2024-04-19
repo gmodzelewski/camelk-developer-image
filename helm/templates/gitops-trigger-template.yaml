@@ -32,8 +32,6 @@ spec:
             value: $(tt.params.git-pusher-name)
           - name: git-commit-message
             value: $(tt.params.git-commit-message)
-          - name: appversion
-            value: $(tt.params.git-revision)
         pipelineRef:
           name: {{ include "app.fullname" . }}-build
         serviceAccountName: pipeline
