@@ -54,3 +54,4 @@ If some pvc gets stuck you can fix this via
 ```sh
 oc patch pvc <pvc-name> -p '{"metadata":{"finalizers": []}}' --type=merge
 ```
+
