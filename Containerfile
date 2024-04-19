@@ -17,7 +17,7 @@ ENV HELM_VERSION=3.14.4
 
 USER 0
 RUN dnf update -y && \ 
-    dnf install -y util-linux-user zsh tar gzip java-17-openjdk && \
+    dnf install -y util-linux-user zsh tar gzip java-17-openjdk golang && \
     dnf clean all
 
 # install camel k cli (= kamel)
